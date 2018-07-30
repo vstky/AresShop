@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Carts.Models.Order>
+
+@{
+    ViewBag.Title = "MyOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My order</h2>
+
+<table class="table">
+    <tr>
+        <th>Member<</th>
+        <th>Recipient name</th>
+        <th>Recipient phone</th>
+        <th>Recipient address</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.GetUrderName()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RecieverName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RecieverPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RecieverAddress)
+            </td>
+            <td>
+                @Html.ActionLink("Detail", "MyOrderDetail", new { id = item.Id }
+             , new { @class = "btn btn-default" })
+            </td>
+        </tr>
+    }
+</table>
+

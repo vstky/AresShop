@@ -1,0 +1,48 @@
+﻿@model List<Carts.Models.Product>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Product list</h2>
+@if (ViewBag.ResultMessage != null)//判斷如果有訊息，則顯示。
+{
+    @Html.Label("info", (string)ViewBag.ResultMessage, new { @class = "text-info" })
+}
+<table class="table">
+    <thead><tr><td colspan="2">Operation</td><td>Picture</td><td>ID</td><td>Name</td><td>Discription</td><td>Price</td><td>Quantity</td></tr></thead>
+    <tbody>
+        @foreach (var pd in this.Model) /* 使用foreach將所有商品列出 */
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(
+                        "Edit", "Edit", new { id = pd.Id }, new { @class = "btn btn-default" }
+                        )                    
+                </td>
+                <td>
+                    @using (@Html.BeginForm("Delete", "Product", FormMethod.Post, new { @class = "Delete" }))
+                    {
+                        @Html.Hidden("id", pd.Id)
+                        <input type="submit" value="Delete" class="btn btn-default" />
+                    }
+                </td>
+                <td><img src="@pd.DefaultImageURL" width="50" height="50"/></td>
+                <td>@pd.Id</td>
+                <td>@pd.Name</td>
+                <td>@pd.Description</td>
+                <td>@pd.Price</td>
+                <td>@pd.Quantity</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div>
+@Html.ActionLink(
+                        "Create product", "Create", new { }, new { @class = "btn btn-default" }
+                        )   
+</div>
+            
